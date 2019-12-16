@@ -1,8 +1,14 @@
 body {
   display: flex;
-  background-color: rgb(11, 162, 232);
+  background-color: rgb(7, 74, 106);
+  color: #039be5;
   min-height: 100vh;
   flex-direction: column;
+}
+
+h1 {
+  box-shadow: 35px 35px 15px 30px rgba(#0a172e);
+  text-align: center;
 }
 
 main {
@@ -15,5 +21,21 @@ footer.page-footer {
 }
 
 .card {
-  background-color: lightsalmon;
+  background-color: rgba(25, 26, 26, 0.947);
+  box-shadow: 15px 10px 2px 2px rgba(35, 41, 58, 0.5);
+  border-radius: 15px 15px 15px 15px;
+
+}
+
+.nav-wrapper, .page-footer {
+  background-color: black;
+  color: white;
+}
+
+hr {
+  border-color: #039be5;
+}
+
+.navbar-fixed a {
+  font-size: 1.5em;
 }

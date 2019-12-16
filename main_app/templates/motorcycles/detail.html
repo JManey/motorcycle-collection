@@ -9,6 +9,10 @@
         <p>Year: {{ motorcycle.year }}</p>
         <p>Style: {{ motorcycle.style }}</p>
         <p>Color: {{ motorcycle.color }}</p>
+          <div class="card-action">
+            <a href="{% url 'motorcycles_update' motorcycle.id %}">Edit</a>
+            <a href="{% url 'motorcycles_delete' motorcycle.id %}">Delete</a>
+          </div>
       </div>
 </div>
 
