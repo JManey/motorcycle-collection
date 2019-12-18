@@ -16,4 +16,53 @@
       </div>
 </div>
 
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ motorcycle }}'s Accessories</h3>
+    {% if motorcycle.accs.count %}
+      {% for acc in motorcycle.accs.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              A <span style="color: {{ acc.color }}">{{ acc.color }}</span> {{ acc.name }} {{ acc.size}}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'unassoc_acc' motorcycle.id acc.id %}" method="post">
+                {% csrf_token %}
+              <button type="submit" class="btn">Remove</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>No Accessories :(</h5>
+    {% endif %}
+  </div>
+  <!-- Available accessories will come after this line -->
+    <div class="col s6">
+    <h3>Available Accessories</h3>
+    {% if accs.count %}
+      {% for acc in accs.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              A <span style="color: {{ acc.color }}">{{ acc.color }}</span> {{ acc.name }} {{ acc.size}}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_acc' motorcycle.id acc.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{motorcycle}} Already Has All Accessories Available</h5>
+    {% endif %}
+  </div>
+</div>
+
 {% endblock %}
