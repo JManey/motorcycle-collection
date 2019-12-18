@@ -16,6 +16,33 @@
       </div>
 </div>
 
+{% comment %} <div class="col s6">
+    <form action="{% url 'add_oil_due' motorcycle.id %}" method="post">
+      {% csrf_token %}
+      {{ oil_due_form.as_p }}
+      <input type="submit" class="btn" value="Oil Due">
+    </form>
+    <br>
+    {% if motorcycle.oil_due %}
+      <div class="card-panel teal-text center-align">{{motorcycle}} is not due for an oil change.</div>
+    {% else %}
+      <div class="card-panel red-text center-align">{{motorcycle}} is due for an oil change.</div>
+    {% endif %}
+    <table class="striped">
+      <thead>
+        <tr><th>Date</th><th>Changed</th></tr>
+      </thead>
+      <tbody>
+        {% for feeding in cat.feeding_set.all %}
+          <tr>
+            <td>{{feeding.date}}</td>
+            <td>{{feeding.get_meal_display}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div> {% endcomment %}
+
 <hr>
 <div class="row">
   <div class="col s6">
