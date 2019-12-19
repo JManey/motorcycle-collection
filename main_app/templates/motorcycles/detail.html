@@ -44,6 +44,21 @@
   </div> {% endcomment %}
 
 <hr>
+
+{% for photo in motorcycle.photo_set.all %}
+      <img class="responsive-img card-panel" src="{{photo.url}}">
+    {% empty %}
+      <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+    {% endfor %}
+      <form action="{% url 'add_photo' motorcycle.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+      {% csrf_token %}
+      <input type="file" name="photo-file">
+      <br><br>
+      <input type="submit" class="btn" value="Upload Photo">
+    </form>
+    {% comment %} </div> {% endcomment %}
+  
+
 <div class="row">
   <div class="col s6">
     <h3>{{ motorcycle }}'s Accessories</h3>

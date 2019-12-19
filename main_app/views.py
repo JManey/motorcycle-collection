@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
-from .models import Motorcycle, Acc
+import uuid
+import boto3
+from .models import Motorcycle, Acc, Photo
+
+S3_BASE_URL = 'https://s3-us-east-2.amazonaws.com/'
+BUCKET = 'cat-image-collector'
 
 # Create your views here.
 def home(request):
@@ -39,4 +44,23 @@ def assoc_acc(request, motorcycle_id, acc_id):
 
 def unassoc_acc(request, motorcycle_id, acc_id):
   Motorcycle.objects.get(id=motorcycle_id).accs.remove(acc_id)
+  return redirect('detail', motorcycle_id=motorcycle_id)
+
+def add_photo(request, motorcycle_id):
+  	# photo-file was the "name" attribute on the <input type="file">
+  photo_file = request.FILES.get('photo-file', None)
+  if photo_file:
+    s3 = boto3.client('s3')
+    # need a unique "key" for S3 / needs image file extension too
+    key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+    # just in case something goes wrong
+    try:
+      s3.upload_fileobj(photo_file, BUCKET, key)
+      # build the full url string
+      url = f"{S3_BASE_URL}{BUCKET}/{key}"
+      # we can assign to motorcycle_id or motorcycle (if you have a motorcycle object)
+      photo = Photo(url=url, motorcycle_id=motorcycle_id)
+      photo.save()
+    except:
+      print('An error occurred uploading file to S3')
   return redirect('detail', motorcycle_id=motorcycle_id)
