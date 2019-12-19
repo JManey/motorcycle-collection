@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Acc(models.Model):
@@ -19,6 +20,7 @@ class Motorcycle(models.Model):
   color = models.CharField(max_length=100)
   mileage = models.IntegerField(default=100)
   accs = models.ManyToManyField(Acc)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
   
   def __str__(self):
     return f'A {self.brand} {self.model}'
@@ -32,3 +34,5 @@ class Photo(models.Model):
 
   def __str__(self):
     return f"Photo for motorcycle_id: {self.motorcycle_id} @{self.url}"
+
+  

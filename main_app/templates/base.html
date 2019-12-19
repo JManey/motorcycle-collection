@@ -18,9 +18,16 @@
           <li><a href="{% url 'home' %}" class="left brand-logo">&nbsp;&nbsp;Motorcycle Collector</a></li>
         </ul>
         <ul class="right">
-          <li class="nav-link"><a href="{% url 'index' %}">Motorcycles</a></li>
-          <li class="nav-link"><a href="{% url 'motorcycles_create' %}">Add Motorcycle</a></li>
           <li class="nav-link"><a href="{% url 'about' %}">About</a></li>
+          {% if user.is_authenticated %}
+            <li class="nav-link"><a href="{% url 'index' %}">Motorcycles</a></li>
+            <li class="nav-link"><a href="{% url 'motorcycles_create' %}">Add Motorcycle</a></li>
+            <li><a href="{% url 'accs_create' %}">Add an Accessory</a></li>
+            <li><a href="{% url 'accs_view' %}">View Accessories</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+          {% else %}
+            <li><a href="{% url 'login' %}">Log In</a></li>
+          {% endif %}
         </ul>
       </div>
     </nav>
