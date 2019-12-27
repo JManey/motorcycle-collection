@@ -3,6 +3,12 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 # Create your models here.
 
+MAINTENANCE = (
+  ('Oil', 3000),
+  ('Chain', 500),
+  ('Tires', 7000)
+)
+
 class Acc(models.Model):
   name = models.CharField(max_length=100)
   size = models.CharField(max_length=100)
@@ -14,9 +20,6 @@ class Acc(models.Model):
   def get_absolute_url(self):
       return reverse("accs_detail", kwargs={'pk': self.id})
       
-# class oil_due(model.Models):
-#   return self.
-
 
 class Motorcycle(models.Model):
   brand = models.CharField(max_length=100)
@@ -41,4 +44,13 @@ class Photo(models.Model):
   def __str__(self):
     return f"Photo for motorcycle_id: {self.motorcycle_id} @{self.url}"
 
-  
+class maint(models.Model):
+  done = models.IntegerField()
+  maintenance = models.CharField(
+    max_length=50,
+    choices=MAINTENANCE,
+    default=MAINTENANCE[0][0],
+  )
+  motorcycle = models.ForeignKey(Motorcycle, on_delete=models.CASCADE)
+  def __str__(self):
+    return f"Maintenance due in x miles"
