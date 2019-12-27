@@ -8,6 +8,12 @@ class Acc(models.Model):
   size = models.CharField(max_length=100)
   color = models.CharField(max_length=100)
 
+  def __str__(self):
+    return self.name
+
+  def get_absolute_url(self):
+      return reverse("accs_detail", kwargs={'pk': self.id})
+      
 # class oil_due(model.Models):
 #   return self.
 

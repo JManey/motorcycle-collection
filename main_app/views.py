@@ -76,22 +76,22 @@ def add_photo(request, motorcycle_id):
   return redirect('detail', motorcycle_id=motorcycle_id)
 
 class AccList(LoginRequiredMixin, ListView):
-  model = Motorcycle
+  model = Acc
 
 class AccDetail(LoginRequiredMixin, DetailView):
-  model = Motorcycle
+  model = Acc
 
 class AccCreate(LoginRequiredMixin, CreateView):
-  model = Motorcycle
+  model = Acc
   fields = '__all__'
 
 class AccUpdate(LoginRequiredMixin, UpdateView):
-  model = Motorcycle
-  fields = ['motorcycle', 'color']
+  model = Acc
+  fields = ['size', 'color']
 
 class AccDelete(LoginRequiredMixin, DeleteView):
-  model = Motorcycle
-  success_url = '/motorcycles/'
+  model = Acc
+  success_url = '/accs/'
 
 def signup(request):
   error_message = ''
